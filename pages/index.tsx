@@ -14,6 +14,8 @@ import { sessionOptions } from '../services/session';
 import { useUser } from '../services/useUser';
 import { addTopic, getTopic } from '../services/api';
 import Router from 'next/router';
+import { config } from '../appconfig';
+import { translate } from '../services/translate';
 
 const InputIdeaCard: FunctionComponent<{ placeholder: string }> = ({ placeholder = "What's on your mind?" }) => {
   return (
@@ -26,7 +28,7 @@ const InputIdeaCard: FunctionComponent<{ placeholder: string }> = ({ placeholder
   )
 }
 
-const NewThread: FunctionComponent<{ user: any, addThread: any }> = ({ user, addThread }) => {
+const NewThread: FunctionComponent<{ user: any, addThread: any, placeholder: string }> = ({ user, addThread, placeholder = '' }) => {
   const [content, setContent] = useState('');
 
   return (
@@ -39,7 +41,7 @@ const NewThread: FunctionComponent<{ user: any, addThread: any }> = ({ user, add
           <Avatar user={user} />
         </div>
         <div className="flex-auto">
-          <textarea required className="bg-gray-200 w-full p-3 rounded-xl placeholder-gray-400" onChange={(ev) => { setContent(ev.target.value) }} placeholder={"What's on your mind?"}></textarea>
+          <textarea required className="bg-gray-200 w-full p-3 rounded-xl placeholder-gray-400" onChange={(ev) => { setContent(ev.target.value) }} placeholder={placeholder}></textarea>
         </div>
       </div>
       <div className={'mt-3 flex justify-center items-center ' + (!content ? 'hidden' : '')}>
@@ -62,14 +64,14 @@ const Home: NextPage = ({ topics, user }: any) => {
     <div>
       {
         user && <div className="mb-3">
-          <NewThread user={user} addThread={addThread} />
+          <NewThread user={user} addThread={addThread} placeholder={translate('NEW_THREAT_PLACEHOLDER', config.language)} />
         </div>
       }
       <div className="space-y-3">
         {
           topics.map((topic: Topic) => {
             return (
-              <IdeaCard key={topic.entityId} t={topic} u={user} />
+              <IdeaCard key={topic.entityId} t={topic} u={user} nolikeText={translate('NOLIKE', config.language)} likedText={translate('LIKED', config.language)} likeText={translate('LIKE', config.language)} commentText={translate('COMMENT', config.language)} viewText={translate('VIEW', config.language)} commentPlaceholder={translate('COMMENT_PLACEHOLDER', config.language)} doCommentText={translate('DO_COMMENT', config.language)} signInCommentText={translate('SIGN_IN_COMMENT', config.language)} signInToLikeText={translate('SIGN_IN_LIKE', config.language)} noCommentYetText={translate('NO_COMMENTS_YET', config.language)} />
             );
           })
         }

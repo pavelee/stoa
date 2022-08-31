@@ -12,6 +12,9 @@ import { logout } from '../services/api';
 import Router from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '../services/session';
+import { config } from '../appconfig';
+import { translate } from '../services/translate';
+import 'moment/locale/pl';
 
 const UserInfo: FunctionComponent<{ user: any }> = ({ user }) => {
   return (
@@ -38,12 +41,12 @@ const AvatarMenu: FunctionComponent<{ user: any, doLogout: any }> = ({ user, doL
           <Avatar user={user} />
         </div>
         <div className={'bg-white p-5 border rounded-xl -left-10 border-black absolute ' + (!isShowMenu ? 'hidden' : '')}>
-          <div className="text-blue-600 cursor-pointer" onClick={() => { doLogout() }}>singout</div>
+          <div className="text-blue-600 cursor-pointer" onClick={() => { doLogout() }}>{translate('SIGN_OUT', config.language)}</div>
         </div>
       </div>
     }
     {
-      !user && <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">Sign in</a></Link>
+      !user && <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">{translate('SIGN_IN', config.language)}</a></Link>
     }
   </>)
 }
@@ -91,7 +94,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 {user && <UserInfo user={user} />}
                 {
                   !user && <div className="bg-white flex justify-center items-center p-5">
-                    <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">Sign in</a></Link>
+                    <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">{translate('SIGN_IN', config.language)}</a></Link>
                   </div>
                 }
               </div>

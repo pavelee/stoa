@@ -30,7 +30,7 @@ export const ReactionList: FunctionComponent<{ reactions: any, reactionName: str
     )
 }
 
-export const Comment: FunctionComponent<{ comment: any, toggleLike: any }> = ({ comment, toggleLike }) => {
+export const Comment: FunctionComponent<{ comment: any, toggleLike: any, likeText: string }> = ({ comment, toggleLike, likeText = '' }) => {
     const [isShowLikes, setIsShowLikes] = useState(false);
     return (
         <div className="flex gap-1 p-3 relative" >
@@ -48,7 +48,7 @@ export const Comment: FunctionComponent<{ comment: any, toggleLike: any }> = ({ 
                         {comment.isLiked && <FcLike />}
                     </div>
                     <div>
-                        <ReactionList reactions={comment.likes} reactionName={'likes'} isShow={isShowLikes} setIsShow={setIsShowLikes} />
+                        <ReactionList reactions={comment.likes} reactionName={likeText} isShow={isShowLikes} setIsShow={setIsShowLikes} />
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@ export const Comment: FunctionComponent<{ comment: any, toggleLike: any }> = ({ 
     )
 }
 
-export const IdeaCard: FunctionComponent<{ t: any, u: any }> = ({ t, u }) => {
+export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, likedText: string, likeText: string, commentText: string, viewText: string, commentPlaceholder: string, doCommentText: string, signInCommentText: string, signInToLikeText: string, noCommentYetText: string }> = ({ t, u, nolikeText = '', likedText = '', likeText = '', commentText = '', viewText = '', commentPlaceholder = '', doCommentText = '', signInCommentText = '', signInToLikeText = '', noCommentYetText = ''  }) => {
     const [topic, setTopic] = useState(t);
     const [isShowLikes, setIsShowLikes] = useState(false);
     const [isShowComments, setIsShowComments] = useState(false);
@@ -126,9 +126,9 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any }> = ({ t, u }) => {
                 </div>
             </div>
             <div className="flex flex-row gap-3 mt-3 text-gray-500">
-                <ReactionList reactions={topic.likes} reactionName={'likes'} isShow={isShowLikes} setIsShow={setIsShowLikes} />
-                <ReactionList reactions={topic.comments} reactionName={'comments'} isShow={isShowComments} setIsShow={setIsShowComments} />
-                <ReactionList reactions={topic.views} reactionName={'views'} isShow={isShowViews} setIsShow={setIsShowViews} />
+                <ReactionList reactions={topic.likes} reactionName={likeText} isShow={isShowLikes} setIsShow={setIsShowLikes} />
+                <ReactionList reactions={topic.comments} reactionName={commentText} isShow={isShowComments} setIsShow={setIsShowComments} />
+                <ReactionList reactions={topic.views} reactionName={viewText} isShow={isShowViews} setIsShow={setIsShowViews} />
             </div>
             <hr className="mt-3" />
             <div className="flex mt-3 gap-5 items-center">
@@ -140,23 +140,23 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any }> = ({ t, u }) => {
                     {!topic.isLiked &&
                         <div className="flex gap-1">
                             <div>
-                                Do you support it?
+                                {nolikeText}
                             </div>
-                            {!u && <div><Link href={'login'}><a className="underline text-blue-500">sing in to support</a></Link></div>}
+                            {!u && <div><Link href={'login'}><a className="underline text-blue-500">{signInToLikeText}</a></Link></div>}
                         </div>
                     }
-                    {topic.isLiked && <span>You liked it!</span>}
+                    {topic.isLiked && <span>{likedText}</span>}
                 </div>
             </div>
             <hr className="mt-3 mb-3" />
             <div className="flex flex-col">
                 <div>
                     {topic.comments.length <= 0 && <div className="flex justify-center items-center">
-                        <span className="text-gray-500">Noone commented yet, be first! 🚀</span>
+                        <span className="text-gray-500">{noCommentYetText}</span>
                     </div>}
                     {topic.comments.map((comment: any) => {
                         return (
-                            <Comment key={comment.id} comment={comment} toggleLike={toggleLikeComment} />
+                            <Comment key={comment.id} comment={comment} toggleLike={toggleLikeComment} likeText={likeText} />
                         )
                     })}
                 </div>
@@ -166,8 +166,8 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any }> = ({ t, u }) => {
                 {
                     u && <div className="flex gap-3 justify-center items-center">
                         <Avatar user={u} />
-                        <textarea onChange={(ev) => { setUserComment(ev.target.value) }} className="bg-gray-100 flex-auto rounded-sm shadow-sm p-3 placeholder-gray-400" placeholder="write a reply"></textarea>
-                        <button onClick={() => { doComment(userComment) }} className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold">comment</button>
+                        <textarea onChange={(ev) => { setUserComment(ev.target.value) }} className="bg-gray-100 flex-auto rounded-sm shadow-sm p-3 placeholder-gray-400" placeholder={commentPlaceholder}></textarea>
+                        <button onClick={() => { doComment(userComment) }} className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold">{doCommentText}</button>
                     </div>
                 }
                 {
@@ -175,7 +175,7 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any }> = ({ t, u }) => {
                         <Link
                             href={'/login'}
                         >
-                            <button className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold w-1/4">sign in to comment</button>
+                            <button className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold w-1/4">{signInCommentText}</button>
                         </Link>
                     </div>
                 }
