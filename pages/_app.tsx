@@ -14,6 +14,7 @@ import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '../services/session';
 import { config } from '../appconfig';
 import { translate } from '../services/translate';
+import 'moment/locale/pl';
 
 const UserInfo: FunctionComponent<{ user: any }> = ({ user }) => {
   return (
