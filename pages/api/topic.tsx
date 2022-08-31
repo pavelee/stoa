@@ -4,6 +4,7 @@ import { sessionOptions } from '../../services/session';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { fetchData, topicSchema } from '../../entity/topic';
 import { getRedisClient, isEntityExist } from '../../services/redis';
+import { addPoints } from '../../entity/user';
 
 type Data = any
 
@@ -44,6 +45,7 @@ const handler = async (
     const postdata = await repo.createAndSave({
       content, author: user.entityId, created: new Date()
     });
+    await addPoints(user.entityId, 3);
     return res.status(200).json(await postdata.getData())
   }
 

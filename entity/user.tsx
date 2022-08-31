@@ -58,3 +58,12 @@ export const build = async (username: string, name: string) => {
         points: 0,
     }
 }
+
+export const addPoints = async (userId: any, points: number): Promise<void> => {
+    console.log(points);
+    let client = await getRedisClient();
+    let repo = client.fetchRepository(userSchema);
+    let user = await repo.fetch(userId);
+    user.points = user.points + points;
+    repo.save(user);
+}

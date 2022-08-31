@@ -8,8 +8,10 @@ import { getRedisClient } from "../../services/redis";
 import { viewSchema } from "../../entity/view";
 import { config } from '../../appconfig';
 import { translate } from '../../services/translate';
+import { useUser } from "../../services/useUser";
 
-const TopicPage: NextPage = ({ topic, user }: any) => {
+const TopicPage: NextPage = ({ topic, userx }: any) => {
+    const { user } = useUser();
     return (
         <>
             <IdeaCard t={topic} u={user} nolikeText={translate('NOLIKE', config.language)} likedText={translate('LIKED', config.language)} likeText={translate('LIKE', config.language)} commentText={translate('COMMENT', config.language)} viewText={translate('VIEW', config.language)} commentPlaceholder={translate('COMMENT_PLACEHOLDER', config.language)} doCommentText={translate('DO_COMMENT', config.language)} signInCommentText={translate('SIGN_IN_COMMENT', config.language)} signInToLikeText={translate('SIGN_IN_LIKE', config.language)} noCommentYetText={translate('NO_COMMENTS_YET', config.language)} />

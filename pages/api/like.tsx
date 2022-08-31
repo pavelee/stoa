@@ -4,6 +4,7 @@ import type { NextApiRequest, NextApiResponse } from 'next'
 import { likeSchema } from '../../entity/like';
 import { getRedisClient, isEntityExist } from '../../services/redis';
 import { sessionOptions } from '../../services/session';
+import { addPoints } from '../../entity/user';
 
 type Data = any
 
@@ -88,6 +89,7 @@ const handler = async (
     const likedata = await repo.createAndSave({
       object, objectid, author: user.entityId, created: new Date()
     });
+    await addPoints(user.entityId, 1);
     return res.status(200).json(await likedata.getData())
   }
 

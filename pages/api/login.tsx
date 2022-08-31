@@ -2,7 +2,7 @@ import { withIronSessionApiRoute } from 'iron-session/next'
 import { sessionOptions } from '../../services/session'
 import { NextApiRequest, NextApiResponse } from 'next'
 import { getRedisClient } from '../../services/redis';
-import { userSchema } from '../../entity/user';
+import { addPoints, userSchema } from '../../entity/user';
 import { build } from '../../entity/user';
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -27,6 +27,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
         req.session.user = user
         await req.session.save()
+        await addPoints(user.entityId, 1);
         res.json(user)
     } catch (error) {
         res.status(500).json({ message: (error as Error).message })

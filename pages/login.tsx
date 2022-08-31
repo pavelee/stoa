@@ -3,6 +3,8 @@ import { FormEvent, useEffect, useState } from "react";
 import { useUser } from "../services/useUser";
 import Router from 'next/router'
 import { login } from "../services/api";
+import { config } from '../appconfig';
+import { translate } from '../services/translate';
 
 const LoginPage: NextPage = () => {
     const [name, setName] = useState('');
@@ -31,12 +33,12 @@ const LoginPage: NextPage = () => {
     return (<>
         <div className="bg-white flex flex-col gap-5 rounded-sm shadow-sm h-96 items-center justify-center">
             <div>
-                <h2 className="font-bold">Sign In</h2>
+                <h2 className="font-bold">{translate('SIGN_IN', config.language)}</h2>
             </div>
             <form className="flex flex-col gap-8 justify-center w-1/4" onSubmit={async (ev) => { await signin(ev); }}>
                 <div className="flex flex-col gap-3">
-                    <label htmlFor="name" className="text-gray-400">Name</label>
-                    <input id="name" required className="border border-gray-300 rounded-sm shadow-sm p-3" placeholder="What's your name?" type="text" onChange={(ev) => { setName(ev.target.value) }} />
+                    <label htmlFor="name" className="text-gray-400">{translate('FORM_NAME', config.language)}</label>
+                    <input id="name" required className="border border-gray-300 rounded-sm shadow-sm p-3" placeholder={translate('FORM_NAME_PALACEHOLDER', config.language)} type="text" onChange={(ev) => { setName(ev.target.value) }} />
                 </div>
                 <div>
                     <input className="w-full bg-green-500 text-white p-2 rounded-sm shadow-sm" type="submit" />

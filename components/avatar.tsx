@@ -1,10 +1,12 @@
-import { FunctionComponent } from "react"
+import { FunctionComponent, useState } from "react"
 import { User } from "../entity/user"
+import { useUser } from "../services/useUser"
 
 export const Avatar: FunctionComponent<{ user: User, size: number }> = ({ user, size = 10 }) => {
+    const [avataSize, setAvatarSize] = useState(size);
     return (
         <div className="cursor-pointer">
-            <div className={`bg-neutral-focus text-neutral-content rounded-full w-${size} h-${size}`}>
+            <div className={`bg-neutral-focus text-neutral-content rounded-full w-${avataSize} h-${avataSize}`}>
                 {/* <span className="text-xl">{text}</span> */}
                 {
                     user && <div className="relative">

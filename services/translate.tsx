@@ -50,7 +50,14 @@ export const translations: Object = {
     'NO_COMMENTS_YET': {
         'en': 'Noone commented yet, be first! 🚀',
         'pl': 'Nikt jeszcze nie skomentował, bądź pierwszy/a 🚀'
-
+    },
+    'FORM_NAME': {
+        'en': 'Name',
+        'pl': 'Nazwa'
+    },
+    'FORM_NAME_PALACEHOLDER': {
+        'en': "What's your name?",
+        'pl': 'Jak byś się nazwał?'
     }
 }
 

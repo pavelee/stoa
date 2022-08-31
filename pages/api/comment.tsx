@@ -3,6 +3,7 @@ import { withIronSessionApiRoute } from 'iron-session/next';
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { commentSchema } from '../../entity/comment';
 import { topicSchema } from '../../entity/topic';
+import { addPoints } from '../../entity/user';
 import { getRedisClient, isEntityExist } from '../../services/redis';
 import { sessionOptions } from '../../services/session';
 
@@ -78,6 +79,7 @@ const handler = async (
     const postdata = await repo.createAndSave({
       content, object, objectid, author: user.entityId, created: new Date()
     });
+    await addPoints(user.entityId, 1);
     return res.status(200).json(await postdata.getData())
   }
 

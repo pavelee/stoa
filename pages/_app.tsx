@@ -14,7 +14,6 @@ import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '../services/session';
 import { config } from '../appconfig';
 import { translate } from '../services/translate';
-import 'moment/locale/pl';
 
 const UserInfo: FunctionComponent<{ user: any }> = ({ user }) => {
   return (
@@ -58,8 +57,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     Router.reload();
   }
 
-  // const { user } = useUser();
-  const user = pageProps.user;
+  const { user } = useUser();
   return (
     <div>
       <Head>

@@ -51,7 +51,8 @@ const NewThread: FunctionComponent<{ user: any, addThread: any, placeholder: str
   )
 }
 
-const Home: NextPage = ({ topics, user }: any) => {
+const Home: NextPage = ({ topics, userx }: any) => {
+  const { user } = useUser();
 
   const addThread = async (content: string) => {
     let topic = await addTopic(content);
