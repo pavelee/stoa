@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  app:
+    container_name: app
+    build:
+      context: ./
+      dockerfile: docker/Dockerfile
+      target: app_dev
+    volumes:
+      - ./:/usr/src/app
+    ports:
+      - "3000:3000"  
+  redis_stack:
+    container_name: redis_stack
+    image: redis/redis-stack:latest
+    volumes:
+     - redis-stack-data:/data
+    ports:
+      - "10001:6379"
+      - "13333:8001"
+volumes:
+  redis-stack-data:
