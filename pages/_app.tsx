@@ -49,9 +49,9 @@ const BestUsers: FunctionComponent<{}> = ({ }) => {
         {
           users.map((user: any) => {
             return (
-            <div className="flex gap-5 w-1/2 mx-auto mb-10">
-              <div className="w-1/2 flex justify-end"><Avatar user={user} size={10} /></div>
-              <div className="w-1/2">{user.name}</div>
+            <div className="flex gap-5 w-full border-t mx-auto p-3">
+              <div className="flex"><Avatar user={user} size={10} /></div>
+              <div className="w-1/2 flex items-center">{user.name}</div>
             </div>)
           })
         }
