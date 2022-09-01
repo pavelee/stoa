@@ -20,6 +20,12 @@ export const logout = async () => {
     return d;
 }
 
+export const FetchBestUsers = async () => {
+    let r = await fetch(`/api/user?best=1`)
+    let d = await r.json();
+    return d;
+}
+
 export const addTopic = async (content: string) => {
     const body = {
         content

@@ -17,9 +17,7 @@ const handler = async (
     let method = req.method;
 
     const handleGet = async (req: NextApiRequest, res: NextApiResponse<Data>) => {
-        // let getdata;
-        // getdata = await repo.search().where('username').eq('pciosek').return.all();
-        // return res.status(200).json(await getdata[0].getData())
+        const { best } = req.query;
 
         let user = req.session.user;
         let id = null;
@@ -27,6 +25,15 @@ const handler = async (
             id = user.entityId;
         }
         let getdata;
+        if (best) {
+            getdata = await repo.search().sortDescending('points').return.all();
+            let response = [];
+            for (let index = 0; index < getdata.length; index++) {
+                const element = getdata[index];
+                response.push(await element.getData())
+            }
+            return res.status(200).json(response)
+        }
         if (id) {
             const exists = await isEntityExist(client, entityName, id as string);
             if (!exists) {

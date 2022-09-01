@@ -4,11 +4,11 @@ import type { AppProps } from 'next/app'
 import { Logo } from '../components/logo';
 import { PointCounter } from '../components/pointCounter';
 import { NotificationBell } from '../components/notificationBell';
-import { FunctionComponent, useState } from 'react';
+import { FunctionComponent, useEffect, useState } from 'react';
 import { useUser } from '../services/useUser';
 import { Avatar } from '../components/avatar';
 import Link from 'next/link';
-import { logout } from '../services/api';
+import { FetchBestUsers, logout } from '../services/api';
 import Router from 'next/router'
 import { withIronSessionSsr } from 'iron-session/next';
 import { sessionOptions } from '../services/session';
@@ -29,6 +29,35 @@ const UserInfo: FunctionComponent<{ user: any }> = ({ user }) => {
       </div>
     </div>
   );
+}
+
+const BestUsers: FunctionComponent<{}> = ({ }) => {
+  const [users, setUsers] = useState([]);
+  useEffect(() => {
+    const fetchUsers = async () => {
+      let usersData = await FetchBestUsers();
+      setUsers(usersData);
+    }
+    fetchUsers();
+  }, [])
+
+  return (
+    <div className='bg-white rounded-xl shadow-sm p-3'>
+      <h2 className="text-center text-xl mb-5">🏆 Zaangażowani</h2>
+      <div className="flex flex-col">
+
+        {
+          users.map((user: any) => {
+            return (
+            <div className="flex gap-5 w-1/2 mx-auto mb-10">
+              <div className="w-1/2 flex justify-end"><Avatar user={user}/></div>
+              <div className="w-1/2">{user.name}</div>
+            </div>)
+          })
+        }
+      </div>
+    </div>
+  )
 }
 
 const AvatarMenu: FunctionComponent<{ user: any, doLogout: any }> = ({ user, doLogout }) => {
@@ -96,6 +125,9 @@ function MyApp({ Component, pageProps }: AppProps) {
                     <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">{translate('SIGN_IN', config.language)}</a></Link>
                   </div>
                 }
+                <div className='mt-3'>
+                  <BestUsers />
+                </div>
               </div>
               <div className="w-full space-y-3 md:w-3/4 flex-col justify-center items-start">
                 <Component {...pageProps} />
