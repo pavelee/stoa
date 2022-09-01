@@ -75,7 +75,7 @@ const AvatarMenu: FunctionComponent<{ user: any, doLogout: any }> = ({ user, doL
       </div>
     }
     {
-      !user && <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">{translate('SIGN_IN', config.language)}</a></Link>
+      !user && <Link href={'/login'}><a className="text-white p-3 shadow-xl rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 text-center">{translate('SIGN_IN', config.language)}</a></Link>
     }
   </>)
 }
@@ -123,7 +123,7 @@ function MyApp({ Component, pageProps }: AppProps) {
                 {user && <UserInfo user={user} />}
                 {
                   !user && <div className="bg-white flex justify-center items-center p-5">
-                    <Link href={'/login'}><a className="bg-blue-200 p-2 rounded-xl shadow-sm">{translate('SIGN_IN', config.language)}</a></Link>
+                    <Link href={'/login'}><a className="text-white p-3 shadow-xl rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 w-1/2 text-center animate-bounce">{translate('SIGN_IN', config.language)}</a></Link>
                   </div>
                 }
                 <div className='mt-3'>

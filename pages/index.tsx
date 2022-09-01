@@ -47,7 +47,7 @@ const NewThread: FunctionComponent<{ user: any, addThread: any, placeholder: str
         </div>
       </div>
       <div className={'mt-3 flex justify-center items-center ' + (!content ? 'hidden' : '')}>
-        <input type="submit" className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold w-1/4" />
+        <input type="submit" className="text-white p-3 shadow-xl rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 w-1/4" />
       </div>
     </form>
   )

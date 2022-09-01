@@ -44,8 +44,8 @@ export const Comment: FunctionComponent<{ comment: any, toggleLike: any, likeTex
                 </div>
                 <div className="flex gap-2">
                     <div className="text-2xl" onClick={() => { toggleLike(comment) }}>
-                        {!comment.isLiked && <FcLikePlaceholder />}
-                        {comment.isLiked && <FcLike />}
+                        {!comment.isLiked && <FcLikePlaceholder className="hover:animate-bounce" />}
+                        {comment.isLiked && <FcLike className="animate-bounce" />}
                     </div>
                     <div>
                         <ReactionList reactions={comment.likes} reactionName={likeText} isShow={isShowLikes} setIsShow={setIsShowLikes} />
@@ -133,8 +133,8 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, l
             <hr className="mt-3" />
             <div className="flex mt-3 gap-5 items-center">
                 <div className="text-3xl" onClick={() => { toggleLike() }}>
-                    {!topic.isLiked && <FcLikePlaceholder />}
-                    {topic.isLiked && <FcLike />}
+                    {!topic.isLiked && <FcLikePlaceholder className="hover:animate-bounce" />}
+                    {topic.isLiked && <FcLike className="animate-bounce" />}
                 </div>
                 <div>
                     {!topic.isLiked &&
@@ -167,7 +167,7 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, l
                     u && <div className="flex gap-3 justify-center items-center">
                         <Avatar user={u} size={10} />
                         <textarea onChange={(ev) => { setUserComment(ev.target.value) }} className="bg-gray-100 flex-auto rounded-sm shadow-sm p-3 placeholder-gray-400" placeholder={commentPlaceholder}></textarea>
-                        <button onClick={() => { doComment(userComment) }} className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold">{doCommentText}</button>
+                        <button onClick={() => { doComment(userComment) }} className="text-white p-3 shadow-xl rounded-xl bg-gradient-to-r from-blue-400 to-blue-500  text-center">{doCommentText}</button>
                     </div>
                 }
                 {
@@ -175,7 +175,7 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, l
                         <Link
                             href={'/login'}
                         >
-                            <button className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold w-1/4">{signInCommentText}</button>
+                            <button className="text-white p-3 shadow-xl rounded-xl bg-gradient-to-r from-blue-400 to-blue-500 w-1/2 text-center w-1/4">{signInCommentText}</button>
                         </Link>
                     </div>
                 }
