@@ -8,6 +8,7 @@ services:
       dockerfile: docker/Dockerfile
       target: app_dev
     volumes:
+      - avatars-data:/usr/src/app/public/avatars:rw
       - ./:/usr/src/app
     ports:
       - "3000:3000"  
@@ -15,9 +16,17 @@ services:
     container_name: redis_stack
     image: redis/redis-stack:latest
     volumes:
-     - redis-stack-data:/data
+     - redis-stack-data:/data:rw
     ports:
       - "10001:6379"
       - "13333:8001"
+  files:
+    container_name: files
+    image: httpd:2.4
+    ports:
+      - "8080:80"
+    volumes:
+      - avatars-data:/usr/local/apache2/htdocs/avatars:ro
 volumes:
+  avatars-data:
   redis-stack-data:

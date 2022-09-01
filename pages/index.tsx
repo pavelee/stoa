@@ -16,6 +16,8 @@ import { addTopic, getTopic } from '../services/api';
 import Router from 'next/router';
 import { config } from '../appconfig';
 import { translate } from '../services/translate';
+import { getRedisClient } from '../services/redis';
+import { fetchByIdData, userSchema } from '../entity/user';
 
 const InputIdeaCard: FunctionComponent<{ placeholder: string }> = ({ placeholder = "What's on your mind?" }) => {
   return (
@@ -51,8 +53,8 @@ const NewThread: FunctionComponent<{ user: any, addThread: any, placeholder: str
   )
 }
 
-const Home: NextPage = ({ topics, userx }: any) => {
-  const { user } = useUser();
+const Home: NextPage = ({ topics, user }: any) => {
+  // const { user } = useUser();
 
   const addThread = async (content: string) => {
     let topic = await addTopic(content);
@@ -88,6 +90,11 @@ export const getServerSideProps = withIronSessionSsr(async function ({
   let user = null;
   if (req.session.user) {
     user = req.session.user;
+    try {
+      user = await fetchByIdData(user.entityId);
+    } catch (e: any) {
+      req.session.destroy();
+    }
   }
 
   let data = await fetchData(null, user);

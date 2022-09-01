@@ -21,7 +21,7 @@ const UserInfo: FunctionComponent<{ user: any }> = ({ user }) => {
     <div className="bg-white flex justify-center items-center rounded-xl shadow-xl p-5">
       <div className="flex-col">
         <div className="cursor-pointer flex justify-center">
-          <Avatar user={user} size={36} />
+          <Avatar user={user} size={86} />
         </div>
         <div className="text-center mt-3 text-xl">
           {user.name}
@@ -87,7 +87,8 @@ function MyApp({ Component, pageProps }: AppProps) {
     Router.reload();
   }
 
-  const { user } = useUser();
+  // const { user } = useUser();
+  const { user } = pageProps;
   return (
     <div>
       <Head>

@@ -100,7 +100,7 @@ export const topicSchema = new Schema(Topic, {
     modified: { type: 'date' },
 })
 
-export const fetchByIdData = async (id: string, user: User | null = null) => {
+export const fetchByIdData = async (id: string, user: any | null = null) => {
     let client = await getRedisClient();
     let repo = client.fetchRepository(topicSchema);
     let getdata;
@@ -112,7 +112,7 @@ export const fetchByIdData = async (id: string, user: User | null = null) => {
     return await getdata.getData(user);
 }
 
-export const fetchData = async (id: string | null = null, user: User | null = null) => {
+export const fetchData = async (id: string | null = null, user: any | null = null) => {
     let client = await getRedisClient();
     let repo = client.fetchRepository(topicSchema);
     let s = repo.search();

@@ -2,7 +2,7 @@
 import { withIronSessionApiRoute } from 'iron-session/next'
 import { sessionOptions } from '../../services/session';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { fetchData, topicSchema } from '../../entity/topic';
+import { fetchByIdData, fetchData, topicSchema } from '../../entity/topic';
 import { getRedisClient, isEntityExist } from '../../services/redis';
 import { addPoints } from '../../entity/user';
 
@@ -22,7 +22,7 @@ const handler = async (
     let user = req.session.user;
     let response = {};
     try {
-      response = await fetchData(id as string, user);
+      response = await fetchByIdData(id as string, user);
     } catch (e: any) {
       if (e.message === 'Not Found') {
         req.session.destroy(); // logout if was logged

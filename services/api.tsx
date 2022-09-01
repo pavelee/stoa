@@ -15,7 +15,7 @@ export const login = async (name: any) => {
 }
 
 export const logout = async () => {
-    let r = await fetch(`${process.env.NEXT_PUBLIC_APP_HOST}/api/logout`);
+    let r = await fetch(`/api/logout`);
     let d = await r.json()
     return d;
 }
@@ -40,13 +40,13 @@ export const addTopic = async (content: string) => {
 }
 
 export const getTopics = async () => {
-    let r = await fetch(`${process.env.NEXT_PUBLIC_APP_HOST}/api/topic`)
+    let r = await fetch(`/api/topic`)
     let d = await r.json();
     return d;
 }
 
 export const getTopic = async (id: string) => {
-    let r = await fetch(`${process.env.NEXT_PUBLIC_APP_HOST}/api/topic?id=${id}`)
+    let r = await fetch(`/api/topic?id=${id}`)
     let d = await r.json();
     return d;
 }

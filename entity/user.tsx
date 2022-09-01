@@ -1,5 +1,5 @@
 import { Entity, Repository, Schema } from 'redis-om';
-import { getRedisClient } from '../services/redis';
+import { getRedisClient, isEntityExist } from '../services/redis';
 export interface User {
     username: string;
     name: string;
@@ -13,6 +13,7 @@ export class User extends Entity {
     async getData() {
         return {
             id: this.entityId,
+            entityId: this.entityId,
             username: this.username,
             name: this.name,
             avatar: this.avatar,
@@ -48,7 +49,7 @@ export const build = async (username: string, name: string) => {
     let saveavatarpath = `/public/avatars/${avatarfile}.jpg`;
     const arrayBuffer = await response.arrayBuffer();
     const buffer = Buffer.from(arrayBuffer);
-    fs.createWriteStream(`.${saveavatarpath}`).write(buffer);
+    await fs.createWriteStream(`.${saveavatarpath}`).write(buffer);
 
     return {
         username: username,
@@ -57,6 +58,18 @@ export const build = async (username: string, name: string) => {
         created: new Date(),
         points: 0,
     }
+}
+
+export const fetchByIdData = async (id: string, user: User | null = null) => {
+    let client = await getRedisClient();
+    let repo = client.fetchRepository(userSchema);
+    let getdata;
+    const exists = await isEntityExist(client, 'User', id as string);
+    if (!exists) {
+        throw new Error('Not Found');
+    }
+    getdata = await repo.fetch(id as string);
+    return await getdata.getData();
 }
 
 export const addPoints = async (userId: any, points: number): Promise<void> => {
