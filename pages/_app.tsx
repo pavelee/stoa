@@ -50,7 +50,7 @@ const BestUsers: FunctionComponent<{}> = ({ }) => {
           users.map((user: any) => {
             return (
             <div className="flex gap-5 w-1/2 mx-auto mb-10">
-              <div className="w-1/2 flex justify-end"><Avatar user={user}/></div>
+              <div className="w-1/2 flex justify-end"><Avatar user={user} size={10} /></div>
               <div className="w-1/2">{user.name}</div>
             </div>)
           })
@@ -67,7 +67,7 @@ const AvatarMenu: FunctionComponent<{ user: any, doLogout: any }> = ({ user, doL
       user &&
       <div className="relative">
         <div onClick={() => { setIsShowMenu(!isShowMenu); }}>
-          <Avatar user={user} />
+          <Avatar user={user} size={10} />
         </div>
         <div className={'bg-white p-5 border rounded-xl -left-10 border-black absolute ' + (!isShowMenu ? 'hidden' : '')}>
           <div className="text-blue-600 cursor-pointer" onClick={() => { doLogout() }}>{translate('SIGN_OUT', config.language)}</div>

@@ -25,7 +25,7 @@ const handler = async (
     }
 
     let s = repo.search();
-    let getdata = [];
+    let getdata: any[] = [];
     if (object && objectid && user) {
       let like = await repo.search().where('object').eq(object as string).where('objectid').eq(objectid as string).where('author').eq(user.entityId).return.first();
       if (like) {
@@ -35,7 +35,7 @@ const handler = async (
       }
     }
 
-    let response = [];
+    let response: any[] = [];
     for (let index = 0; index < getdata.length; index++) {
       const element = getdata[index];
       response.push(await element.getData())

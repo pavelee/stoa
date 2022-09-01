@@ -1,4 +1,4 @@
-export const translations: Object = {
+export const translations: any = {
     'SIGN_IN': {
         'en': 'sign in',
         'pl': 'zaloguj się',

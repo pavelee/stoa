@@ -15,7 +15,7 @@ export const ReactionList: FunctionComponent<{ reactions: any, reactionName: str
                 {reactions.map((reaction: any) => (
                     <div className="flex gap-3 justify-center items-center">
                         <div>
-                            <Avatar user={reaction.author} />
+                            <Avatar user={reaction.author} size={10} />
                         </div>
                         <div>
                             {reaction.author.name}
@@ -35,7 +35,7 @@ export const Comment: FunctionComponent<{ comment: any, toggleLike: any, likeTex
     return (
         <div className="flex gap-1 p-3 relative" >
             <div className="flex">
-                <Avatar user={comment.author} />
+                <Avatar user={comment.author} size={10} />
             </div>
             <div className="flex-auto">
                 <div className="bg-gray-200 rounded-lg p-3">
@@ -105,7 +105,7 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, l
             {/* <figure><img src="https://placeimg.com/1920/1080/arch" alt="Shoes" /></figure> */}
             <div className="flex gap-3">
                 <div>
-                    <Avatar user={topic.author} />
+                    <Avatar user={topic.author} size={10} />
                 </div>
                 <div className="flex flex-col">
                     <div>{topic.author.name}</div>
@@ -165,7 +165,7 @@ export const IdeaCard: FunctionComponent<{ t: any, u: any, nolikeText: string, l
                 </div>
                 {
                     u && <div className="flex gap-3 justify-center items-center">
-                        <Avatar user={u} />
+                        <Avatar user={u} size={10} />
                         <textarea onChange={(ev) => { setUserComment(ev.target.value) }} className="bg-gray-100 flex-auto rounded-sm shadow-sm p-3 placeholder-gray-400" placeholder={commentPlaceholder}></textarea>
                         <button onClick={() => { doComment(userComment) }} className="bg-blue-400 text-white p-3 shadow-sm rounded-xl font-bold">{doCommentText}</button>
                     </div>

@@ -38,7 +38,7 @@ const NewThread: FunctionComponent<{ user: any, addThread: any, placeholder: str
     }} className="bg-white rounded-xl p-5 transition-all duration-300">
       <div className="flex gap-3">
         <div>
-          <Avatar user={user} />
+          <Avatar user={user} size={10} />
         </div>
         <div className="flex-auto">
           <textarea required className="bg-gray-200 w-full p-3 rounded-xl placeholder-gray-400" onChange={(ev) => { setContent(ev.target.value) }} placeholder={placeholder}></textarea>

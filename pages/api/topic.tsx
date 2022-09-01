@@ -23,7 +23,7 @@ const handler = async (
     let response = {};
     try {
       response = await fetchData(id as string, user);
-    } catch (e) {
+    } catch (e: any) {
       if (e.message === 'Not Found') {
         req.session.destroy(); // logout if was logged
         return res.status(404).json({ error: 'Not Found' });

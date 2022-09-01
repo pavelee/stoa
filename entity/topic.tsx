@@ -100,23 +100,24 @@ export const topicSchema = new Schema(Topic, {
     modified: { type: 'date' },
 })
 
+export const fetchByIdData = async (id: string, user: User | null = null) => {
+    let client = await getRedisClient();
+    let repo = client.fetchRepository(topicSchema);
+    let getdata;
+    const exists = await isEntityExist(client, 'Topic', id as string);
+    if (!exists) {
+        throw new Error('Not Found');
+    }
+    getdata = await repo.fetch(id as string);
+    return await getdata.getData(user);
+}
 
 export const fetchData = async (id: string | null = null, user: User | null = null) => {
     let client = await getRedisClient();
     let repo = client.fetchRepository(topicSchema);
     let s = repo.search();
-    let getdata;
-    if (id) {
-        const exists = await isEntityExist(client, 'Topic', id as string);
-        if (!exists) {
-            throw new Error('Not Found');
-        }
-        getdata = await repo.fetch(id as string);
-        return await getdata.getData(user);
-    } else {
-        getdata = await s.sortDesc('created').all()
-    }
-    let response = [];
+    let getdata = await s.sortDesc('created').all()
+    let response: any[] = [];
     for (let index = 0; index < getdata.length; index++) {
         const element = getdata[index];
         response.push(await element.getData(user))

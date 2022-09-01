@@ -1,12 +1,16 @@
-import { FunctionComponent, useState } from "react"
+import { FunctionComponent, useEffect, useState } from "react"
 import { User } from "../entity/user"
 import { useUser } from "../services/useUser"
 
 export const Avatar: FunctionComponent<{ user: User, size: number }> = ({ user, size = 10 }) => {
-    const [avataSize, setAvatarSize] = useState(size);
+    const [sizeClasses, setSizeClasses] = useState('w-10 h-10');
+    useEffect(() => {
+      setSizeClasses(`w-${size} h-${size}`)
+    }, [size])
+    
     return (
         <div className="cursor-pointer">
-            <div className={`bg-neutral-focus text-neutral-content rounded-full w-${avataSize} h-${avataSize}`}>
+            <div className={`bg-neutral-focus text-neutral-content rounded-full ` + sizeClasses}>
                 {/* <span className="text-xl">{text}</span> */}
                 {
                     user && <div className="shadow-sm">

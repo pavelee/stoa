@@ -3,7 +3,7 @@ import { NextPage } from "next";
 import { IdeaCard } from "../../components/ideacard";
 import { sessionOptions } from "../../services/session";
 import { useRouter } from 'next/router'
-import { fetchData } from "../../entity/topic";
+import { fetchByIdData } from "../../entity/topic";
 import { getRedisClient } from "../../services/redis";
 import { viewSchema } from "../../entity/view";
 import { config } from '../../appconfig';
@@ -23,9 +23,12 @@ export const getServerSideProps = withIronSessionSsr(async function ({
     req,
     res,
 }) {
-    let splited = req.url.split('/');
-    const id = splited[2];
-    let data = await fetchData(id, req.session.user);
+    let splited = req?.url?.split('/');
+    let id = null;
+    if (splited != undefined) {
+        id = splited[2];
+    }
+    let data = await fetchByIdData(id as string, req.session.user);
 
     let user = null;
     if (req.session.user) {
@@ -45,7 +48,7 @@ export const getServerSideProps = withIronSessionSsr(async function ({
             }
         );
         // refresh after new view
-        data = await fetchData(id, req.session.user);
+        data = await fetchByIdData(id as string, req.session.user);
     }
 
     return {

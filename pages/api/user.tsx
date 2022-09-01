@@ -24,7 +24,7 @@ const handler = async (
         if (user) {
             id = user.entityId;
         }
-        let getdata;
+        let getdata: any[] = [];
         if (best) {
             getdata = await repo.search().sortDescending('points').return.all();
             let response = [];
@@ -40,8 +40,8 @@ const handler = async (
                 req.session.destroy();
                 return res.status(404).json({});
             }
-            getdata = await repo.fetch(id as string);
-            return res.status(200).json(await getdata.getData())
+            let user = await repo.fetch(id as string);
+            return res.status(200).json(await user.getData())
         }
         res.status(401).json({
             'error': 'Access dnied'
