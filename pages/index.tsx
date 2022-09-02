@@ -68,7 +68,7 @@ const Home: NextPage = ({ topics, user }: any) => {
   return (
     <div>
       <div className="rounded-xl shadow-xl bg-gradient-to-r from-blue-300 to-blue-500 p-5 text-white mb-3 text-center text-xl">
-        <h2>Angażuj się 🏋️‍♀️ zdobywaj wipCoiny 💰💰💰</h2>
+        <h2>Angażuj się 🏋️‍♀️ zdobywaj wipCoiny 💰 wymieniaj na nagody 🏝</h2>
       </div>
       {
         user && <div className="mb-3">
