@@ -59,7 +59,9 @@ const Home: NextPage = ({ topics, user }: any) => {
   const addThread = async (content: string) => {
     let topic = await addTopic(content);
     if (topic) {
-      Router.push(`/topic/${topic.id}`);
+      Router.reload();
+      // @TODO brainstorm about process
+      // Router.push(`/topic/${topic.id}`);
     }
   }
 
