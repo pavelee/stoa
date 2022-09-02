@@ -69,7 +69,7 @@ const AvatarMenu: FunctionComponent<{ user: any, doLogout: any }> = ({ user, doL
         <div onClick={() => { setIsShowMenu(!isShowMenu); }}>
           <Avatar user={user} size={10} />
         </div>
-        <div className={'bg-white p-5 border rounded-xl -left-10 border-black absolute ' + (!isShowMenu ? 'hidden' : '')}>
+        <div className={'bg-white p-5 border rounded-xl text-sm -left-10 border-black absolute ' + (!isShowMenu ? 'hidden' : '')}>
           <div className="text-blue-600 cursor-pointer" onClick={() => { doLogout() }}>{translate('SIGN_OUT', config.language)}</div>
         </div>
       </div>
